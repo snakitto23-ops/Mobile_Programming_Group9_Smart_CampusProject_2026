@@ -21,8 +21,9 @@ import androidx.navigation.NavController
 
 @Composable
 fun CallScreen(navController: NavController, name: String, phone: String) {
-    val navyColor = Color(0xFF0D3B66)
-    val orangeColor = Color(0xFFFF9800)
+    val colorScheme = MaterialTheme.colorScheme
+    val navyColor = colorScheme.secondary
+    val orangeColor = colorScheme.primary
 
     Column(
         modifier = Modifier
@@ -39,14 +40,14 @@ fun CallScreen(navController: NavController, name: String, phone: String) {
             modifier = Modifier
                 .size(150.dp)
                 .clip(CircleShape)
-                .background(Color.White.copy(alpha = 0.2f)),
+                .background(colorScheme.onSecondary.copy(alpha = 0.2f)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = null,
                 modifier = Modifier.size(100.dp),
-                tint = Color.White
+                tint = colorScheme.onSecondary
             )
         }
 
@@ -54,7 +55,7 @@ fun CallScreen(navController: NavController, name: String, phone: String) {
 
         Text(
             text = name,
-            color = Color.White,
+            color = colorScheme.onSecondary,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold
         )
@@ -63,7 +64,7 @@ fun CallScreen(navController: NavController, name: String, phone: String) {
 
         Text(
             text = phone,
-            color = Color.White.copy(alpha = 0.7f),
+            color = colorScheme.onSecondary.copy(alpha = 0.7f),
             fontSize = 18.sp
         )
 
@@ -88,9 +89,9 @@ fun CallScreen(navController: NavController, name: String, phone: String) {
                 onClick = { /* Mute logic */ },
                 modifier = Modifier
                     .size(60.dp)
-                    .background(Color.White.copy(alpha = 0.1f), CircleShape)
+                    .background(colorScheme.onSecondary.copy(alpha = 0.1f), CircleShape)
             ) {
-                Icon(Icons.Default.Mic, contentDescription = "Mute", tint = Color.White)
+                Icon(Icons.Default.Mic, contentDescription = "Mute", tint = colorScheme.onSecondary)
             }
 
             IconButton(
@@ -111,9 +112,9 @@ fun CallScreen(navController: NavController, name: String, phone: String) {
                 onClick = { /* Speaker logic */ },
                 modifier = Modifier
                     .size(60.dp)
-                    .background(Color.White.copy(alpha = 0.1f), CircleShape)
+                    .background(colorScheme.onSecondary.copy(alpha = 0.1f), CircleShape)
             ) {
-                Icon(Icons.AutoMirrored.Filled.VolumeUp, contentDescription = "Speaker", tint = Color.White)
+                Icon(Icons.AutoMirrored.Filled.VolumeUp, contentDescription = "Speaker", tint = colorScheme.onSecondary)
             }
         }
 
