@@ -44,7 +44,8 @@ fun HomeScreen(navController: NavController) {
         Ride("Alex", "Main Campus", "Kampala Campus", "5:00 PM", 3, "Offer", "10,000", phone = "0788117894"),
         Ride("Sarah", "Bombo", "Main Campus", "7:00 AM", 2, "Request", "5,000", "Property Delivery Service", phone = "0788222333"),
         Ride("Henry", "Luwero", "Kampala Campus", "9:00 AM", 4, "Offer", "10,000", phone = "0777100243"),
-        Ride("Edger", "Kampala Campus", "Bombo", "8:00 AM", 3, "Offer", "5,000", phone = "0700123456")
+        Ride("Edger", "Kampala Campus", "Bombo", "8:00 AM", 3, "Offer", "5,000", phone = "0700123456"),
+        Ride("Kibogina", "Bombo", "Kampala Campus", "2:00 PM", 1, "Offer", "5,000", "Boda Boda", phone = "0755123456")
     )
 
     Scaffold(
