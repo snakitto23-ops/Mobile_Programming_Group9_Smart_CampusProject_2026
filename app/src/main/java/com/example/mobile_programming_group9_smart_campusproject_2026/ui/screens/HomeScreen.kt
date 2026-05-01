@@ -35,9 +35,10 @@ data class Ride(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
-    val backgroundColor = Color(0xFFF5F5F5)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
+    val backgroundColor = colorScheme.background
 
     // Using only the 4 specified locations: Main Campus, Bombo, Luwero, Kampala Campus
     val rides = listOf(
@@ -58,13 +59,13 @@ fun HomeScreen(navController: NavController) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
                             text = "Ndejje University",
-                            color = Color.White,
+                            color = colorScheme.onPrimary,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
                             text = "Available Rides",
-                            color = Color.White,
+                            color = colorScheme.onPrimary,
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )
@@ -89,9 +90,9 @@ fun HomeScreen(navController: NavController) {
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = navyColor)
             ) {
-                Icon(Icons.Default.Person, contentDescription = null, tint = Color.White)
+                Icon(Icons.Default.Person, contentDescription = null, tint = colorScheme.onSecondary)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("My Profile", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text("My Profile", color = colorScheme.onSecondary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -107,8 +108,8 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 fun RideCard(ride: Ride, navController: NavController) {
-    val navyColor = Color(0xFF0D3B66)
-    val orangeColor = Color(0xFFFF9800)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
 
     Card(
         modifier = Modifier
@@ -120,7 +121,7 @@ fun RideCard(ride: Ride, navController: NavController) {
             },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = colorScheme.surface)
     ) {
         Row(
             modifier = Modifier
@@ -132,7 +133,7 @@ fun RideCard(ride: Ride, navController: NavController) {
             Box(
                 modifier = Modifier
                     .size(60.dp)
-                    .background(Color(0xFFFFF3E0), CircleShape),
+                    .background(colorScheme.primaryContainer, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 CarLogo(Modifier.size(35.dp))
@@ -141,17 +142,17 @@ fun RideCard(ride: Ride, navController: NavController) {
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(modifier = Modifier.weight(1f)) {
-                Text(ride.driverName, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = navyColor)
+                Text(ride.driverName, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colorScheme.onSurface)
                 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.LocationOn, contentDescription = null, modifier = Modifier.size(14.dp), tint = Color.Gray)
+                    Icon(Icons.Default.LocationOn, contentDescription = null, modifier = Modifier.size(14.dp), tint = colorScheme.onSurfaceVariant)
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("${ride.from} ➔ ${ride.to}", color = Color.Gray, fontSize = 14.sp)
+                    Text("${ride.from} ➔ ${ride.to}", color = colorScheme.onSurfaceVariant, fontSize = 14.sp)
                 }
                 
                 Text(
                     "Time: ${ride.time} | Seats: ${ride.seats}",
-                    color = Color.Gray,
+                    color = colorScheme.onSurfaceVariant,
                     fontSize = 13.sp
                 )
                 
