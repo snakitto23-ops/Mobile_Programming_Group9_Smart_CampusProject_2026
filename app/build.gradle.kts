@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "ug.ac.ndejje.mobile_programming_group9_smart_campusproject_2026"
-    compileSdk = 34
+    namespace = "com.example.mobile_programming_group9_smart_campusproject_2026"
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ug.ac.ndejje.mobile_programming_group9_smart_campusproject_2026"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
