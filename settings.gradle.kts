@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Mobile_Programming_Group9_Smart_CampusProject_2026"
 include(":app")
- 

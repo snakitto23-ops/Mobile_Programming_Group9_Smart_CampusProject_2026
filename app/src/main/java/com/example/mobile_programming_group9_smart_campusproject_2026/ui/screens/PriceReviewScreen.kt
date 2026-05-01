@@ -23,15 +23,16 @@ fun PriceReviewScreen(
     to: String,
     price: String
 ) {
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
-    val backgroundColor = Color(0xFFF5F5F5)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
+    val backgroundColor = colorScheme.background
 
     Scaffold(
         containerColor = backgroundColor,
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Price Review", color = Color.White, fontWeight = FontWeight.Bold) },
+                title = { Text("Price Review", color = colorScheme.onPrimary, fontWeight = FontWeight.Bold) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = orangeColor)
             )
         }
@@ -50,21 +51,21 @@ fun PriceReviewScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = colorScheme.surface),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
                 Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("Your Journey", color = Color.Gray, fontSize = 14.sp)
+                    Text("Your Journey", color = colorScheme.onSurfaceVariant, fontSize = 14.sp)
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(from, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = navyColor)
+                        Text(from, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colorScheme.onSurface)
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = null,
                             modifier = Modifier.padding(horizontal = 8.dp),
                             tint = orangeColor
                         )
-                        Text(to, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = navyColor)
+                        Text(to, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colorScheme.onSurface)
                     }
                 }
             }
@@ -75,13 +76,13 @@ fun PriceReviewScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = colorScheme.surface),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
                 Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(Icons.Default.Wallet, contentDescription = null, tint = orangeColor, modifier = Modifier.size(40.dp))
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("Total Fare", color = Color.Gray, fontSize = 16.sp)
+                    Text("Total Fare", color = colorScheme.onSurfaceVariant, fontSize = 16.sp)
                     Text("UGX $price", fontWeight = FontWeight.ExtraBold, fontSize = 32.sp, color = orangeColor)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text("Payment Method: Cash on Ride", color = navyColor, fontSize = 14.sp, fontWeight = FontWeight.Medium)
@@ -100,11 +101,11 @@ fun PriceReviewScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = navyColor)
             ) {
-                Text("Confirm Booking", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text("Confirm Booking", color = colorScheme.onSecondary, fontWeight = FontWeight.Bold, fontSize = 18.sp)
             }
             
             TextButton(onClick = { navController.popBackStack() }) {
-                Text("Cancel", color = Color.Gray)
+                Text("Cancel", color = colorScheme.onSurfaceVariant)
             }
             
             Spacer(modifier = Modifier.height(16.dp))

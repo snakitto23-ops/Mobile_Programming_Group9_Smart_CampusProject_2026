@@ -14,32 +14,39 @@ import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = OrangePrimary,
-    secondary = OrangeSecondary,
-    tertiary = OrangeTertiary,
-    background = Color(0xFF1A1A1A),
-    surface = Color(0xFF2D2D2D),
     onPrimary = Color.Black,
-    onSecondary = Color.Black,
+    primaryContainer = DarkOrange,
+    onPrimaryContainer = Color.White,
+    secondary = NavyBlue,
+    onSecondary = Color.White,
+    background = BackgroundDark,
     onBackground = Color.White,
-    onSurface = Color.White
+    surface = SurfaceDark,
+    onSurface = Color.White,
+    surfaceVariant = Color(0xFF333333),
+    onSurfaceVariant = Color.LightGray
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = OrangePrimary,
-    secondary = OrangeSecondary,
-    tertiary = OrangeTertiary,
-    background = LightOrange,
-    surface = Color.White,
     onPrimary = Color.White,
-    onSecondary = Color.Black,
+    primaryContainer = LightOrange,
+    onPrimaryContainer = DarkOrange,
+    secondary = NavyBlue,
+    onSecondary = Color.White,
+    background = BackgroundLight,
     onBackground = Color.Black,
-    onSurface = Color.Black
+    surface = Color.White,
+    onSurface = Color.Black,
+    surfaceVariant = Color(0xFFEEEEEE),
+    onSurfaceVariant = Color.Gray
 )
 
 @Composable
 fun SmartCampusTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // Disabled for brand consistency
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -47,6 +54,7 @@ fun SmartCampusTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
