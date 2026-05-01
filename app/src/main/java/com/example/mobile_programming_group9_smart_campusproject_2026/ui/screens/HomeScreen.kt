@@ -42,7 +42,7 @@ fun HomeScreen(navController: NavController) {
     // Using only the 4 specified locations: Main Campus, Bombo, Luwero, Kampala Campus
     val rides = listOf(
         Ride("Alex", "Main Campus", "Kampala Campus", "5:00 PM", 3, "Offer", "10,000", phone = "0788117894"),
-        Ride("Sarah", "Bombo", "Main Campus", "7:00 AM", 2, "Request", "5,000", "Property Delivery Service", phone = "0788222333"),
+        Ride("Sarah", "Bombo", "Main Campus", "7:00 AM", 2, "Offer", "5,000", "Property Delivery Service", phone = "0788222333"),
         Ride("Henry", "Luwero", "Kampala Campus", "9:00 AM", 4, "Offer", "10,000", phone = "0777100243"),
         Ride("Edger", "Kampala Campus", "Bombo", "8:00 AM", 3, "Offer", "5,000", phone = "0700123456"),
         Ride("Kibogina", "Bombo", "Kampala Campus", "2:00 PM", 1, "Offer", "5,000", "Boda Boda", phone = "0755123456"),
@@ -54,7 +54,22 @@ fun HomeScreen(navController: NavController) {
         containerColor = backgroundColor,
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Available Rides", color = Color.White, fontWeight = FontWeight.Bold) },
+                title = {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "Ndejje University",
+                            color = Color.White,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Text(
+                            text = "Available Rides",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = orangeColor)
             )
         }
