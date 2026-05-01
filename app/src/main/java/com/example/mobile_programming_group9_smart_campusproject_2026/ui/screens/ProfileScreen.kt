@@ -2,13 +2,16 @@ package com.example.mobile_programming_group9_smart_campusproject_2026.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -107,42 +110,85 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Theme Toggle Row
+            // Menu Items
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = colorScheme.surface),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = if (isDarkMode) Icons.Default.DarkMode else Icons.Default.LightMode,
-                            contentDescription = null,
-                            tint = orangeColor
+                Column {
+                    // Dark Mode Toggle Row
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = if (isDarkMode) Icons.Default.DarkMode else Icons.Default.LightMode,
+                                contentDescription = null,
+                                tint = orangeColor
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                "Dark Mode",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = colorScheme.onSurface
+                            )
+                        }
+                        Switch(
+                            checked = isDarkMode,
+                            onCheckedChange = { onThemeToggle() },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = orangeColor,
+                                checkedTrackColor = orangeColor.copy(alpha = 0.5f)
+                            )
                         )
+                    }
+
+                    HorizontalDivider(color = colorScheme.outlineVariant.copy(alpha = 0.5f), thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                    // Ride History Row
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { navController.navigate("history") }
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.Default.History, contentDescription = null, tint = orangeColor)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            "Dark Mode",
+                            "Ride History",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             color = colorScheme.onSurface
                         )
                     }
-                    Switch(
-                        checked = isDarkMode,
-                        onCheckedChange = { onThemeToggle() },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = orangeColor,
-                            checkedTrackColor = orangeColor.copy(alpha = 0.5f)
+
+                    HorizontalDivider(color = colorScheme.outlineVariant.copy(alpha = 0.5f), thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                    // Notifications Row
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { navController.navigate("notifications") }
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.Default.Notifications, contentDescription = null, tint = orangeColor)
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            "Notifications",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = colorScheme.onSurface
                         )
-                    )
+                    }
                 }
             }
 
