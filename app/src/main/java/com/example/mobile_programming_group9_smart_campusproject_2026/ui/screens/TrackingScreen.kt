@@ -27,19 +27,20 @@ import androidx.navigation.NavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackingScreen(navController: NavController) {
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Live Tracking", color = Color.White) },
+                title = { Text("Live Tracking", color = colorScheme.onPrimary) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White)
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = colorScheme.onPrimary)
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = navyColor)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = orangeColor)
             )
         }
     ) { paddingValues ->
@@ -47,7 +48,7 @@ fun TrackingScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(0xFFF0F0F0))
+                .background(colorScheme.background)
         ) {
             // Simulated Map Area
             Box(
@@ -55,7 +56,7 @@ fun TrackingScreen(navController: NavController) {
                     .weight(1f)
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .background(Color.White, RoundedCornerShape(24.dp))
+                    .background(colorScheme.surfaceVariant, RoundedCornerShape(24.dp))
             ) {
                 SimulatedMap()
             }
@@ -66,14 +67,14 @@ fun TrackingScreen(navController: NavController) {
                     .fillMaxWidth()
                     .padding(16.dp),
                 shape = RoundedCornerShape(24.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = colorScheme.surface),
                 elevation = CardDefaults.cardElevation(8.dp)
             ) {
                 Column(modifier = Modifier.padding(24.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Surface(
                             shape = CircleShape,
-                            color = Color(0xFFFFF3E0),
+                            color = colorScheme.primaryContainer,
                             modifier = Modifier.size(50.dp)
                         ) {
                             Icon(
@@ -85,17 +86,17 @@ fun TrackingScreen(navController: NavController) {
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                         Column {
-                            Text("Driver: Kibogina", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                            Text("Boda Boda • UX 452C", color = Color.Gray)
+                            Text("Driver: Kibogina", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colorScheme.onSurface)
+                            Text("Boda Boda • UX 452C", color = colorScheme.onSurfaceVariant)
                         }
                     }
                     
-                    HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp), color = colorScheme.outlineVariant)
                     
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.LocationOn, contentDescription = null, tint = Color.Red, modifier = Modifier.size(20.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("ETA: 4 mins away", fontWeight = FontWeight.Medium)
+                        Text("ETA: 4 mins away", fontWeight = FontWeight.Medium, color = colorScheme.onSurface)
                     }
                     
                     Spacer(modifier = Modifier.height(16.dp))
@@ -106,7 +107,7 @@ fun TrackingScreen(navController: NavController) {
                         colors = ButtonDefaults.buttonColors(containerColor = orangeColor),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Text("Call Driver")
+                        Text("Call Driver", color = colorScheme.onPrimary)
                     }
                 }
             }
@@ -116,6 +117,7 @@ fun TrackingScreen(navController: NavController) {
 
 @Composable
 fun SimulatedMap() {
+    val colorScheme = MaterialTheme.colorScheme
     val infiniteTransition = rememberInfiniteTransition(label = "mapAnimation")
     
     // Animate progress from 0 to 1
@@ -143,7 +145,7 @@ fun SimulatedMap() {
         // Draw the Road
         drawPath(
             path = roadPath,
-            color = Color.LightGray,
+            color = Color.DarkGray,
             style = Stroke(width = 20f)
         )
         
@@ -176,14 +178,14 @@ fun SimulatedMap() {
 
         // Draw the Ride (Moving Car/Boda)
         drawCircle(
-            color = Color(0xFF0D3B66),
+            color = colorScheme.secondary,
             radius = 20f,
             center = pos
         )
         
         // Draw a smaller circle inside for styling
         drawCircle(
-            color = Color(0xFFFF9800),
+            color = colorScheme.primary,
             radius = 10f,
             center = pos
         )
