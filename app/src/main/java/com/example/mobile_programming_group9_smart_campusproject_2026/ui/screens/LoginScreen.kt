@@ -38,9 +38,10 @@ fun LoginScreen(navController: NavController) {
     var visible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
-    val backgroundColor = Color(0xFFF5F5F5)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
+    val backgroundColor = colorScheme.background
 
     LaunchedEffect(Unit) {
         visible = true
@@ -70,7 +71,7 @@ fun LoginScreen(navController: NavController) {
             ) {
                 Text(
                     "safety at low cost",
-                    color = Color.White,
+                    color = colorScheme.onPrimary,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -120,32 +121,32 @@ fun LoginScreen(navController: NavController) {
                         OutlinedTextField(
                             value = email,
                             onValueChange = { email = it },
-                            placeholder = { Text("University Email", color = Color.Gray) },
+                            placeholder = { Text("University Email") },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                            leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = Color.DarkGray) },
+                            leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = orangeColor,
-                                unfocusedBorderColor = Color.LightGray,
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White
+                                unfocusedBorderColor = colorScheme.outline,
+                                focusedContainerColor = colorScheme.surface,
+                                unfocusedContainerColor = colorScheme.surface
                             )
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         OutlinedTextField(
                             value = password,
                             onValueChange = { password = it },
-                            placeholder = { Text("Password", color = Color.Gray) },
+                            placeholder = { Text("Password") },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = Color.DarkGray) },
+                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = orangeColor,
-                                unfocusedBorderColor = Color.LightGray,
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White
+                                unfocusedBorderColor = colorScheme.outline,
+                                focusedContainerColor = colorScheme.surface,
+                                unfocusedContainerColor = colorScheme.surface
                             )
                         )
 
@@ -167,9 +168,9 @@ fun LoginScreen(navController: NavController) {
                             enabled = !isLoading
                         ) {
                             if (isLoading) {
-                                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White)
+                                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = colorScheme.onPrimary)
                             } else {
-                                Text("Login", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.White)
+                                Text("Login", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colorScheme.onPrimary)
                             }
                         }
                     }
@@ -178,11 +179,11 @@ fun LoginScreen(navController: NavController) {
                         shape = RoundedCornerShape(24.dp),
                         elevation = CardDefaults.cardElevation(8.dp),
                         modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(containerColor = Color.White)
+                        colors = CardDefaults.cardColors(containerColor = colorScheme.surface)
                     ) {
                         Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                             Text("Verify Email", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = navyColor)
-                            Text("Enter the 4-digit code sent to \n$email", textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
+                            Text("Enter the 4-digit code sent to \n$email", textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium, color = colorScheme.onSurfaceVariant)
                             
                             Spacer(modifier = Modifier.height(24.dp))
                             
@@ -196,7 +197,7 @@ fun LoginScreen(navController: NavController) {
                                 singleLine = true,
                                 colors = OutlinedTextFieldDefaults.colors(
                                     focusedBorderColor = orangeColor,
-                                    unfocusedBorderColor = Color.LightGray
+                                    unfocusedBorderColor = colorScheme.outline
                                 )
                             )
 
@@ -213,7 +214,7 @@ fun LoginScreen(navController: NavController) {
                                 colors = ButtonDefaults.buttonColors(containerColor = orangeColor),
                                 enabled = otpCode.length == 4
                             ) {
-                                Text("VERIFY & LOGIN", fontWeight = FontWeight.Bold)
+                                Text("VERIFY & LOGIN", fontWeight = FontWeight.Bold, color = colorScheme.onPrimary)
                             }
 
                             TextButton(onClick = { isOtpSent = false }) {
@@ -227,7 +228,7 @@ fun LoginScreen(navController: NavController) {
             if (!isOtpSent) {
                 Spacer(modifier = Modifier.height(24.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("New student? ", color = Color.Gray)
+                    Text("New student? ", color = colorScheme.onSurfaceVariant)
                     TextButton(
                         onClick = { navController.navigate("register") },
                         contentPadding = PaddingValues(0.dp)
@@ -242,7 +243,7 @@ fun LoginScreen(navController: NavController) {
 
 @Composable
 fun CarLogo(modifier: Modifier = Modifier) {
-    val orangeColor = Color(0xFFFF9800)
+    val orangeColor = MaterialTheme.colorScheme.primary
     Canvas(modifier = modifier) {
         val w = size.width
         val h = size.height
