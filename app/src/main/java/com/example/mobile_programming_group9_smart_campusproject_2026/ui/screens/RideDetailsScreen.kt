@@ -32,10 +32,12 @@ fun RideDetailsScreen(
     price: String,
     extraInfo: String = "none"
 ) {
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
-    val lightBeige = Color(0xFFFAF7F2)
-    val iconBgColor = Color(0xFFFFF3E0)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
+    val backgroundColor = colorScheme.background
+    val surfaceColor = colorScheme.surface
+    val iconBgColor = colorScheme.primaryContainer
 
     val isDelivery = extraInfo.contains("Delivery", ignoreCase = true)
     var selectedPropertyType by remember { mutableStateOf("") }
@@ -45,7 +47,7 @@ fun RideDetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
+            .background(backgroundColor)
             .padding(24.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -55,21 +57,21 @@ fun RideDetailsScreen(
             modifier = Modifier
                 .fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = lightBeige),
-            elevation = CardDefaults.cardElevation(0.dp)
+            colors = CardDefaults.cardColors(containerColor = surfaceColor),
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(
                 modifier = Modifier
                     .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                DetailItem(icon = Icons.Default.Person, label = "Driver", value = name, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
-                DetailItem(icon = Icons.Default.LocationOn, label = "From", value = from, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
-                DetailItem(icon = Icons.Default.LocationOn, label = "To", value = to, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
+                DetailItem(icon = Icons.Default.Person, label = "Driver", value = name, valueColor = colorScheme.onSurface, iconTint = orangeColor, iconBg = iconBgColor)
+                DetailItem(icon = Icons.Default.LocationOn, label = "From", value = from, valueColor = colorScheme.onSurface, iconTint = orangeColor, iconBg = iconBgColor)
+                DetailItem(icon = Icons.Default.LocationOn, label = "To", value = to, valueColor = colorScheme.onSurface, iconTint = orangeColor, iconBg = iconBgColor)
                 DetailItem(icon = Icons.Default.Info, label = "Price", value = "UGX $price", valueColor = orangeColor, iconTint = orangeColor, iconBg = iconBgColor)
                 
                 if (isDelivery) {
-                    HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
+                    HorizontalDivider(color = colorScheme.outlineVariant)
                     Text(
                         text = "Property Description",
                         fontWeight = FontWeight.Bold,
@@ -92,7 +94,7 @@ fun RideDetailsScreen(
                                     onClick = { selectedPropertyType = type },
                                     colors = RadioButtonDefaults.colors(selectedColor = orangeColor)
                                 )
-                                Text(text = type, color = navyColor, fontSize = 14.sp)
+                                Text(text = type, color = colorScheme.onSurface, fontSize = 14.sp)
                             }
                         }
                     }
@@ -108,7 +110,9 @@ fun RideDetailsScreen(
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = orangeColor,
-                            unfocusedBorderColor = Color.LightGray
+                            unfocusedBorderColor = colorScheme.outline,
+                            focusedContainerColor = colorScheme.surface,
+                            unfocusedContainerColor = colorScheme.surface
                         )
                     )
                 }
@@ -126,9 +130,9 @@ fun RideDetailsScreen(
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(containerColor = navyColor)
         ) {
-            Icon(Icons.Default.Place, contentDescription = null, tint = Color.White)
+            Icon(Icons.Default.Place, contentDescription = null, tint = colorScheme.onSecondary)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Track Ride", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text("Track Ride", color = colorScheme.onSecondary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -144,9 +148,9 @@ fun RideDetailsScreen(
             colors = ButtonDefaults.buttonColors(containerColor = orangeColor),
             enabled = !isDelivery || (selectedPropertyType.isNotEmpty() && propertyDescription.isNotBlank())
         ) {
-            Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color.White)
+            Icon(Icons.Default.CheckCircle, contentDescription = null, tint = colorScheme.onPrimary)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Confirm Request", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text("Confirm Request", color = colorScheme.onPrimary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -159,7 +163,7 @@ fun RideDetailsScreen(
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(12.dp),
-            border = BorderStroke(1.dp, Color.Gray),
+            border = BorderStroke(1.dp, colorScheme.outline),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = orangeColor)
         ) {
             Icon(Icons.Default.Phone, contentDescription = null, tint = orangeColor)
@@ -197,7 +201,7 @@ fun DetailItem(
         Spacer(modifier = Modifier.width(16.dp))
         
         Column {
-            Text(label, color = Color.Gray, fontSize = 12.sp)
+            Text(label, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (isRating) {
                     Icon(Icons.Default.Star, contentDescription = null, tint = iconTint, modifier = Modifier.size(16.dp))
