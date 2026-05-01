@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.mobile_programming_group9_smart_campusproject_2026.model.currentUser
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -156,6 +157,10 @@ fun LoginScreen(navController: NavController) {
                             onClick = { 
                                 if (email.isNotEmpty() && password.isNotEmpty()) {
                                     isLoading = true
+                                    // Increment login attempts for tracking
+                                    currentUser?.let {
+                                        it.loginAttempts += 1
+                                    }
                                     isOtpSent = true
                                     isLoading = false
                                 }
