@@ -24,8 +24,9 @@ fun BookingSuccessScreen(
     to: String,
     price: String
 ) {
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
 
     var isCancelling by remember { mutableStateOf(false) }
     var cancellationReason by remember { mutableStateOf("") }
@@ -33,7 +34,7 @@ fun BookingSuccessScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -59,7 +60,7 @@ fun BookingSuccessScreen(
             Text(
                 text = "Booking Successful!",
                 style = MaterialTheme.typography.headlineMedium,
-                color = navyColor,
+                color = colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
             )
 
@@ -68,7 +69,7 @@ fun BookingSuccessScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5))
+                colors = CardDefaults.cardColors(containerColor = colorScheme.surfaceVariant)
             ) {
                 Column(
                     modifier = Modifier.padding(24.dp),
@@ -77,7 +78,7 @@ fun BookingSuccessScreen(
                     Text(
                         text = "Journey",
                         style = MaterialTheme.typography.labelLarge,
-                        color = Color.Gray
+                        color = colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = "$from \u2794 $to",
@@ -92,7 +93,7 @@ fun BookingSuccessScreen(
                     Text(
                         text = "Total Amount",
                         style = MaterialTheme.typography.labelLarge,
-                        color = Color.Gray
+                        color = colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = "UGX $price",
@@ -117,7 +118,7 @@ fun BookingSuccessScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = navyColor)
             ) {
-                Text("Back to Home", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text("Back to Home", color = colorScheme.onSecondary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -147,7 +148,7 @@ fun BookingSuccessScreen(
             Text(
                 text = "We're sorry to see you go. Please tell us why you are cancelling:",
                 textAlign = TextAlign.Center,
-                color = Color.Gray,
+                color = colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
 
@@ -163,7 +164,7 @@ fun BookingSuccessScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.LightGray
+                    unfocusedBorderColor = colorScheme.outline
                 )
             )
 
