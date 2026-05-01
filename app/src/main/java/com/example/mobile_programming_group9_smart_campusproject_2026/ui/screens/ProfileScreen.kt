@@ -7,6 +7,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -24,11 +26,16 @@ import com.example.mobile_programming_group9_smart_campusproject_2026.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(navController: NavController) {
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
-    val backgroundColor = Color(0xFFF5F5F5)
-    val grayText = Color(0xFF9E9E9E)
+fun ProfileScreen(
+    navController: NavController,
+    isDarkMode: Boolean,
+    onThemeToggle: () -> Unit
+) {
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
+    val backgroundColor = colorScheme.background
+    val grayText = colorScheme.onSurfaceVariant
 
     Scaffold(
         topBar = {
@@ -36,7 +43,7 @@ fun ProfileScreen(navController: NavController) {
                 title = { 
                     Text(
                         "Profile", 
-                        color = Color.White, 
+                        color = colorScheme.onPrimary, 
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp
                     )
@@ -46,7 +53,7 @@ fun ProfileScreen(navController: NavController) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack, 
                             contentDescription = "Back", 
-                            tint = Color.White
+                            tint = colorScheme.onPrimary
                         )
                     }
                 },
@@ -67,12 +74,11 @@ fun ProfileScreen(navController: NavController) {
             // Profile Picture
             Box(
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(120.dp)
                     .clip(CircleShape)
                     .background(orangeColor),
                 contentAlignment = Alignment.Center
             ) {
-                // Using the imported image from drawables
                 Image(
                     painter = painterResource(id = R.drawable.whatsapp_image_2026_04_22_at_15_26_21),
                     contentDescription = "Profile Picture",
@@ -81,14 +87,14 @@ fun ProfileScreen(navController: NavController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Name
             Text(
                 text = "Lomeling Peter",
-                fontSize = 28.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = navyColor
+                color = colorScheme.onBackground
             )
 
             // Email
@@ -99,13 +105,54 @@ fun ProfileScreen(navController: NavController) {
                 modifier = Modifier.padding(top = 4.dp)
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Theme Toggle Row
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = if (isDarkMode) Icons.Default.DarkMode else Icons.Default.LightMode,
+                            contentDescription = null,
+                            tint = orangeColor
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            "Dark Mode",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = colorScheme.onSurface
+                        )
+                    }
+                    Switch(
+                        checked = isDarkMode,
+                        onCheckedChange = { onThemeToggle() },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = orangeColor,
+                            checkedTrackColor = orangeColor.copy(alpha = 0.5f)
+                        )
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Activity Summary Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = colorScheme.surface),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(
@@ -121,7 +168,7 @@ fun ProfileScreen(navController: NavController) {
                     HorizontalDivider(
                         modifier = Modifier.padding(vertical = 12.dp), 
                         thickness = 1.dp, 
-                        color = Color(0xFFEEEEEE)
+                        color = colorScheme.outlineVariant
                     )
 
                     Row(
@@ -130,7 +177,7 @@ fun ProfileScreen(navController: NavController) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text("Rides Taken", color = grayText, fontSize = 16.sp)
-                        Text("5", color = navyColor, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text("5", color = colorScheme.onSurface, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -145,11 +192,11 @@ fun ProfileScreen(navController: NavController) {
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = null,
-                                tint = Color(0xFFFFD600), // Brighter yellow for the star
+                                tint = Color(0xFFFFD600),
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("4.8", color = navyColor, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("4.8", color = colorScheme.onSurface, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
