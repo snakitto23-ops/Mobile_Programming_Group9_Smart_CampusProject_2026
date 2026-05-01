@@ -3,9 +3,10 @@ package com.example.mobile_programming_group9_smart_campusproject_2026
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,9 +20,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SmartCampusTheme {
+            val systemDark = isSystemInDarkTheme()
+            var isDarkMode by remember { mutableStateOf(systemDark) }
+            
+            SmartCampusTheme(darkTheme = isDarkMode) {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    AppNavigation()
+                    AppNavigation(isDarkMode = isDarkMode, onThemeToggle = { isDarkMode = !isDarkMode })
                 }
             }
         }
@@ -29,7 +33,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "login") {
@@ -96,6 +100,6 @@ fun AppNavigation() {
             CallScreen(navController, name, phone)
         }
         composable("tracking") { TrackingScreen(navController) }
-        composable("profile") { ProfileScreen(navController) }
+        composable("profile") { ProfileScreen(navController, isDarkMode, onThemeToggle) }
     }
 }
