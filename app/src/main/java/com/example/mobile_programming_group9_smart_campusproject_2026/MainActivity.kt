@@ -101,5 +101,7 @@ fun AppNavigation(isDarkMode: Boolean, onThemeToggle: () -> Unit) {
         }
         composable("tracking") { TrackingScreen(navController) }
         composable("profile") { ProfileScreen(navController, isDarkMode, onThemeToggle) }
+        composable("history") { HistoryScreen(navController) }
+        composable("notifications") { NotificationScreen(navController) }
     }
 }
