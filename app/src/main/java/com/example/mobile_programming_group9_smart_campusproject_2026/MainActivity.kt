@@ -37,14 +37,15 @@ fun AppNavigation() {
         composable("register") { RegisterScreen(navController) }
         composable("home") { HomeScreen(navController) }
         composable(
-            route = "details/{name}/{from}/{to}/{time}/{phone}/{price}",
+            route = "details/{name}/{from}/{to}/{time}/{phone}/{price}/{extraInfo}",
             arguments = listOf(
                 navArgument("name") { type = NavType.StringType },
                 navArgument("from") { type = NavType.StringType },
                 navArgument("to") { type = NavType.StringType },
                 navArgument("time") { type = NavType.StringType },
                 navArgument("phone") { type = NavType.StringType },
-                navArgument("price") { type = NavType.StringType }
+                navArgument("price") { type = NavType.StringType },
+                navArgument("extraInfo") { type = NavType.StringType; defaultValue = "none" }
             )
         ) { backStackEntry ->
             val name = backStackEntry.arguments?.getString("name") ?: ""
@@ -53,8 +54,9 @@ fun AppNavigation() {
             val time = backStackEntry.arguments?.getString("time") ?: ""
             val phone = backStackEntry.arguments?.getString("phone") ?: ""
             val price = backStackEntry.arguments?.getString("price") ?: ""
+            val extraInfo = backStackEntry.arguments?.getString("extraInfo") ?: "none"
             
-            RideDetailsScreen(navController, name, from, to, time, phone, price)
+            RideDetailsScreen(navController, name, from, to, time, phone, price, extraInfo)
         }
         composable(
             route = "price-review/{from}/{to}/{price}",

@@ -2,13 +2,16 @@ package com.example.mobile_programming_group9_smart_campusproject_2026.ui.screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,42 +29,89 @@ fun RideDetailsScreen(
     to: String,
     time: String,
     phone: String,
-    price: String
+    price: String,
+    extraInfo: String = "none"
 ) {
     val orangeColor = Color(0xFFFF9800)
     val navyColor = Color(0xFF0D3B66)
     val lightBeige = Color(0xFFFAF7F2)
     val iconBgColor = Color(0xFFFFF3E0)
 
+    val isDelivery = extraInfo.contains("Delivery", ignoreCase = true)
+    var selectedPropertyType by remember { mutableStateOf("") }
+    var propertyDescription by remember { mutableStateOf("") }
+    val propertyTypes = listOf("Delicate", "Hard", "Documents", "Other")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF5F5F5))
-            .padding(24.dp),
+            .padding(24.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Details Card
         Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
+                .fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = lightBeige),
             elevation = CardDefaults.cardElevation(0.dp)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(24.dp)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceEvenly
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 DetailItem(icon = Icons.Default.Person, label = "Driver", value = name, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
-                DetailItem(icon = Icons.Default.Star, label = "Rating", value = "4.5", valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor, isRating = true)
                 DetailItem(icon = Icons.Default.LocationOn, label = "From", value = from, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
                 DetailItem(icon = Icons.Default.LocationOn, label = "To", value = to, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
-                DetailItem(icon = Icons.Default.Info, label = "Time", value = time, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
-                DetailItem(icon = Icons.Default.Phone, label = "Phone", value = phone, valueColor = navyColor, iconTint = orangeColor, iconBg = iconBgColor)
                 DetailItem(icon = Icons.Default.Info, label = "Price", value = "UGX $price", valueColor = orangeColor, iconTint = orangeColor, iconBg = iconBgColor)
+                
+                if (isDelivery) {
+                    HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
+                    Text(
+                        text = "Property Description",
+                        fontWeight = FontWeight.Bold,
+                        color = navyColor,
+                        fontSize = 16.sp
+                    )
+                    
+                    // Options for property type
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        propertyTypes.forEach { type ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { selectedPropertyType = type }
+                                    .padding(vertical = 2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                RadioButton(
+                                    selected = selectedPropertyType == type,
+                                    onClick = { selectedPropertyType = type },
+                                    colors = RadioButtonDefaults.colors(selectedColor = orangeColor)
+                                )
+                                Text(text = type, color = navyColor, fontSize = 14.sp)
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Text input for detailed description
+                    OutlinedTextField(
+                        value = propertyDescription,
+                        onValueChange = { propertyDescription = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        placeholder = { Text("Write property details...", fontSize = 14.sp) },
+                        shape = RoundedCornerShape(12.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = orangeColor,
+                            unfocusedBorderColor = Color.LightGray
+                        )
+                    )
+                }
             }
         }
 
@@ -91,7 +141,8 @@ fun RideDetailsScreen(
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = orangeColor)
+            colors = ButtonDefaults.buttonColors(containerColor = orangeColor),
+            enabled = !isDelivery || (selectedPropertyType.isNotEmpty() && propertyDescription.isNotBlank())
         ) {
             Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color.White)
             Spacer(modifier = Modifier.width(8.dp))

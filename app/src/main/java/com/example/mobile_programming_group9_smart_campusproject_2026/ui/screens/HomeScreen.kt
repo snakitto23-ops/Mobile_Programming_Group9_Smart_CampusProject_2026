@@ -45,7 +45,9 @@ fun HomeScreen(navController: NavController) {
         Ride("Sarah", "Bombo", "Main Campus", "7:00 AM", 2, "Request", "5,000", "Property Delivery Service", phone = "0788222333"),
         Ride("Henry", "Luwero", "Kampala Campus", "9:00 AM", 4, "Offer", "10,000", phone = "0777100243"),
         Ride("Edger", "Kampala Campus", "Bombo", "8:00 AM", 3, "Offer", "5,000", phone = "0700123456"),
-        Ride("Kibogina", "Bombo", "Kampala Campus", "2:00 PM", 1, "Offer", "5,000", "Boda Boda", phone = "0755123456")
+        Ride("Kibogina", "Bombo", "Kampala Campus", "2:00 PM", 1, "Offer", "5,000", "Boda Boda", phone = "0755123456"),
+        Ride("Musoke", "Main Campus", "Luwero", "10:00 AM", 0, "Offer", "7,000", "Property Delivery Service", phone = "0700999888"),
+        Ride("Nakamya", "Kampala Campus", "Main Campus", "3:30 PM", 0, "Offer", "8,500", "Property Delivery Service", phone = "0755111222")
     )
 
     Scaffold(
@@ -97,8 +99,9 @@ fun RideCard(ride: Ride, navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                // Pass all details including price to the details page
-                navController.navigate("details/${ride.driverName}/${ride.from}/${ride.to}/${ride.time}/${ride.phone}/${ride.price}")
+                // Pass all details including extraInfo to the details page
+                val info = (ride.extraInfo ?: "none").replace(" ", "_")
+                navController.navigate("details/${ride.driverName}/${ride.from}/${ride.to}/${ride.time}/${ride.phone}/${ride.price}/$info")
             },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(4.dp),
