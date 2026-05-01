@@ -38,9 +38,10 @@ fun RegisterScreen(navController: NavController) {
     var isOtpSent by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-    val orangeColor = Color(0xFFFF9800)
-    val navyColor = Color(0xFF0D3B66)
-    val backgroundColor = Color(0xFFF5F5F5)
+    val colorScheme = MaterialTheme.colorScheme
+    val orangeColor = colorScheme.primary
+    val navyColor = colorScheme.secondary
+    val backgroundColor = colorScheme.background
 
     Scaffold(
         containerColor = backgroundColor,
@@ -54,7 +55,7 @@ fun RegisterScreen(navController: NavController) {
             ) {
                 Text(
                     "safety at low cost",
-                    color = Color.White,
+                    color = colorScheme.onPrimary,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -92,14 +93,14 @@ fun RegisterScreen(navController: NavController) {
                         OutlinedTextField(
                             value = name,
                             onValueChange = { name = it },
-                            placeholder = { Text("Full Name", color = Color.Gray) },
+                            placeholder = { Text("Full Name") },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
-                            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = Color.DarkGray) },
+                            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White,
-                                unfocusedBorderColor = Color.LightGray,
+                                focusedContainerColor = colorScheme.surface,
+                                unfocusedContainerColor = colorScheme.surface,
+                                unfocusedBorderColor = colorScheme.outline,
                                 focusedBorderColor = orangeColor
                             )
                         )
@@ -107,15 +108,15 @@ fun RegisterScreen(navController: NavController) {
                         OutlinedTextField(
                             value = email,
                             onValueChange = { email = it },
-                            placeholder = { Text("University Email", color = Color.Gray) },
+                            placeholder = { Text("University Email") },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                            leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = Color.DarkGray) },
+                            leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White,
-                                unfocusedBorderColor = Color.LightGray,
+                                focusedContainerColor = colorScheme.surface,
+                                unfocusedContainerColor = colorScheme.surface,
+                                unfocusedBorderColor = colorScheme.outline,
                                 focusedBorderColor = orangeColor
                             )
                         )
@@ -123,15 +124,15 @@ fun RegisterScreen(navController: NavController) {
                         OutlinedTextField(
                             value = password,
                             onValueChange = { password = it },
-                            placeholder = { Text("Password", color = Color.Gray) },
+                            placeholder = { Text("Password") },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = Color.DarkGray) },
+                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White,
-                                unfocusedBorderColor = Color.LightGray,
+                                focusedContainerColor = colorScheme.surface,
+                                unfocusedContainerColor = colorScheme.surface,
+                                unfocusedBorderColor = colorScheme.outline,
                                 focusedBorderColor = orangeColor
                             )
                         )
@@ -139,15 +140,15 @@ fun RegisterScreen(navController: NavController) {
                         OutlinedTextField(
                             value = phone,
                             onValueChange = { phone = it },
-                            placeholder = { Text("Phone Number", color = Color.Gray) },
+                            placeholder = { Text("Phone Number") },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                            leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null, tint = Color.DarkGray) },
+                            leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null) },
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White,
-                                unfocusedBorderColor = Color.LightGray,
+                                focusedContainerColor = colorScheme.surface,
+                                unfocusedContainerColor = colorScheme.surface,
+                                unfocusedBorderColor = colorScheme.outline,
                                 focusedBorderColor = orangeColor
                             )
                         )
@@ -163,7 +164,7 @@ fun RegisterScreen(navController: NavController) {
                                 shape = RoundedCornerShape(8.dp),
                                 colors = FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = orangeColor,
-                                    selectedLabelColor = Color.White
+                                    selectedLabelColor = colorScheme.onPrimary
                                 )
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -174,7 +175,7 @@ fun RegisterScreen(navController: NavController) {
                                 shape = RoundedCornerShape(8.dp),
                                 colors = FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = orangeColor,
-                                    selectedLabelColor = Color.White
+                                    selectedLabelColor = colorScheme.onPrimary
                                 )
                             )
                         }
@@ -195,9 +196,9 @@ fun RegisterScreen(navController: NavController) {
                             enabled = !isLoading
                         ) {
                             if (isLoading) {
-                                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White)
+                                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = colorScheme.onPrimary)
                             } else {
-                                Text("Register", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.White)
+                                Text("Register", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = colorScheme.onPrimary)
                             }
                         }
                     }
@@ -206,11 +207,11 @@ fun RegisterScreen(navController: NavController) {
                         shape = RoundedCornerShape(24.dp),
                         elevation = CardDefaults.cardElevation(8.dp),
                         modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(containerColor = Color.White)
+                        colors = CardDefaults.cardColors(containerColor = colorScheme.surface)
                     ) {
                         Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                             Text("Verify Account", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = navyColor)
-                            Text("Enter the 4-digit code sent to \n$email", textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
+                            Text("Enter the 4-digit code sent to \n$email", textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium, color = colorScheme.onSurfaceVariant)
                             
                             Spacer(modifier = Modifier.height(24.dp))
                             
@@ -224,7 +225,7 @@ fun RegisterScreen(navController: NavController) {
                                 singleLine = true,
                                 colors = OutlinedTextFieldDefaults.colors(
                                     focusedBorderColor = orangeColor,
-                                    unfocusedBorderColor = Color.LightGray
+                                    unfocusedBorderColor = colorScheme.outline
                                 )
                             )
 
@@ -244,7 +245,7 @@ fun RegisterScreen(navController: NavController) {
                                 colors = ButtonDefaults.buttonColors(containerColor = orangeColor),
                                 enabled = otpCode.length == 4
                             ) {
-                                Text("VERIFY & REGISTER", fontWeight = FontWeight.Bold)
+                                Text("VERIFY & REGISTER", fontWeight = FontWeight.Bold, color = colorScheme.onPrimary)
                             }
 
                             TextButton(onClick = { isOtpSent = false }) {
@@ -258,7 +259,7 @@ fun RegisterScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(24.dp))
             
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Already have an account? ", color = Color.Gray)
+                Text("Already have an account? ", color = colorScheme.onSurfaceVariant)
                 TextButton(
                     onClick = { navController.popBackStack() },
                     contentPadding = PaddingValues(0.dp)
