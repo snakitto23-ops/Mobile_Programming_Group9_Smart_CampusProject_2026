@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -60,14 +61,23 @@ fun HomeScreen(navController: NavController) {
                         Text(
                             text = "Ndejje University",
                             color = colorScheme.onPrimary,
-                            fontSize = 14.sp,
+                            fontSize = 12.sp,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
                             text = "Available Rides",
                             color = colorScheme.onPrimary,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
+                            fontSize = 18.sp
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { navController.navigate("notifications") }) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications",
+                            tint = colorScheme.onPrimary
                         )
                     }
                 },
@@ -164,8 +174,8 @@ fun RideCard(ride: Ride, navController: NavController) {
                     fontWeight = FontWeight.ExtraBold
                 )
                 
-                if (ride.extraInfo != null) {
-                    Text(ride.extraInfo, color = Color(0xFFE91E63), fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                ride.extraInfo?.let {
+                    Text(it, color = Color(0xFFE91E63), fontSize = 12.sp, fontWeight = FontWeight.Medium)
                 }
             }
 
