@@ -82,6 +82,17 @@ fun AppNavigation() {
             val price = backStackEntry.arguments?.getString("price") ?: ""
             BookingSuccessScreen(navController, from, to, price)
         }
+        composable(
+            route = "call/{name}/{phone}",
+            arguments = listOf(
+                navArgument("name") { type = NavType.StringType },
+                navArgument("phone") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val name = backStackEntry.arguments?.getString("name") ?: ""
+            val phone = backStackEntry.arguments?.getString("phone") ?: ""
+            CallScreen(navController, name, phone)
+        }
         composable("tracking") { TrackingScreen(navController) }
         composable("profile") { ProfileScreen(navController) }
     }
