@@ -1,4 +1,4 @@
-# Smart Campus Ride - Ndejje University
+# Smart Campus RideSharing App - Ndejje University
 
 **Smart Campus Ride** is a modern Android application designed to facilitate safe, affordable, and efficient transportation for the Ndejje University community. The system connects students for ride-sharing between campuses (Main, Kampala, Bombo, and Luwero) and provides specialized property delivery services.
 
@@ -88,8 +88,8 @@ app/src/main/java/.../
 
 ## 📄 License
 This project is developed for academic purposes as part of the Ndejje University 2026 Final Exam.
- Smart Campus RideSharing System
-[▶ Watch Demo on YouTube](https://youtube.com/your-demo-link)
+ Smart Campus RideSharing App
+
 
 
  Team Members and their Roles
