@@ -77,7 +77,12 @@ app/src/main/java/.../
 ## 🎓 Academic Context
 *   **Course:** Mobile Programming (2026)
 *   **Institution:** Ndejje University, Faculty of Engineering & ICT
-*   **Lead Developer:** Lomeling Peter (Group 9)
+*   **Presentation Link:** [Watch on YouTube](https://youtu.be/cMJnnhqhuco)
+*   **Group 9 Team Members:**
+    *   **Lomeling Peter:** Lead Developer & UI/UX
+    *   **Nakitto Sarah:** UI/UX & GitHub Manager
+    *   **Mugwanya Henry:** Testing & Quality Assurance
+    *   **Musinguzi Edger:** Research & Documentation
 
 ---
 
